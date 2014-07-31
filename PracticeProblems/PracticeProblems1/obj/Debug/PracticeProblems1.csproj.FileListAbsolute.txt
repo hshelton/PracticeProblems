@@ -1,0 +1,6 @@
+C:\Users\Notebook\Projects\PracticeProblems\PracticeProblems\PracticeProblems1\bin\Debug\PracticeProblems1.exe.config
+C:\Users\Notebook\Projects\PracticeProblems\PracticeProblems\PracticeProblems1\bin\Debug\PracticeProblems1.exe
+C:\Users\Notebook\Projects\PracticeProblems\PracticeProblems\PracticeProblems1\bin\Debug\PracticeProblems1.pdb
+C:\Users\Notebook\Projects\PracticeProblems\PracticeProblems\PracticeProblems1\obj\Debug\PracticeProblems1.csprojResolveAssemblyReference.cache
+C:\Users\Notebook\Projects\PracticeProblems\PracticeProblems\PracticeProblems1\obj\Debug\PracticeProblems1.exe
+C:\Users\Notebook\Projects\PracticeProblems\PracticeProblems\PracticeProblems1\obj\Debug\PracticeProblems1.pdb
