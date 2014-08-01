@@ -13,6 +13,7 @@ namespace PracticeProblems1
         ///  Given a multidimensional array like below
         ///  0 1 0 0 3
         ///  0 3 3 0 0
+        ///  0 0 0 0 2 
         ///  0 0 1 0 2
         ///  0 0 0 0 0 
         ///  
@@ -23,79 +24,64 @@ namespace PracticeProblems1
         public static int getGroups (int[,] numbers)
         {
             //calculate length of row
-            HashSet<List<int>> objects = new HashSet<List<int>>();
+            HashSet<List<int>>  objects = new HashSet<List<int>>();
 
-            var rowLength = numbers.GetLength(0);
+            Dictionary<int, bool> explored = new Dictionary<int, bool>();
+
+            List<int> currentObject = new List<int>();
+
+            int rowLength = numbers.GetLength(0);
             int colLength = numbers.Length / rowLength;
 
-            int top = 0;
-            int bottom = 0;
-            int prev = 0;
-            int next = 0;
-
-            int k;
-            List<int>currentObject = new List<int>();
-            for (int i = 0; i < rowLength; i++ )
-            {
-                for(int j = 0; j <colLength; j++ )
+            for (int i = 0; i < rowLength; i++)
+            { 
+                for (int j = 0; j < colLength; j++ )
                 {
-                    if(numbers[i, j]!= 0)
-                    {
-                        //add tops 
-                        if (i >= 1)
-                        {
-                            k = i;
-                            while (k > 0 && numbers[i - k, j] != 0  )
-                            {
-                                currentObject.Add(numbers[i - k, j]);
-                                    k--;
-                            }
-                        }
-
-                        //add bottoms 
-                        if (i< colLength)
-                        {
-                            k = i;
-                            while( i-k > 0 && numbers[i+k, j] !=0 )
-                            {
-                                currentObject.Add(numbers[i - k, j]);
-                                k++;
-                            }
-                        }
-
-                        //add right neighbor
-                        k = 1;
-                        while(j+k < rowLength && k < rowLength && numbers[i, j+k] !=0)
-                        {
-                            currentObject.Add(numbers[i, j + k]);
-                            k++;
-
-                        }
-
-                        k = 0;
-                        //add left neighbor
-                        if (i > 1 )
-                        {
-                            while((j-k)> i)
-                            {
-                                currentObject.Add(numbers[i, j - k]);
-                                k++;
-                            }
-                        }
-                        if (currentObject.Count >= 1)
-                            objects.Add(currentObject);
-                    }
+                    visit(ref objects, ref explored, numbers, i, j, ref currentObject);
                 }
 
 
-            }
 
+                }
 
-                return rowLength;
+            return objects.Count;
         }
 
+        private static void visit(ref HashSet<List<int>> _objects, ref Dictionary<int, bool> _visited, int[,] numbers, int _i, int _j, ref List<int>_currentObject )
+        {
+       
+                add(numbers, ref _currentObject,ref _visited, _i, _j);
+                if(_currentObject.Count > 0)
+                _objects.Add(new List<int>(_currentObject));
+                _currentObject.Clear();
 
+        }
 
+        public static void add (int[,] arr, ref List<int> obj, ref Dictionary<int, bool> _visited, int i, int j)
+        {
+            List<int> results = new List<int>();
+           int rowLength = arr.GetLength(0);
+            int colLength = arr.Length / rowLength;
+      
+
+            if (arr[i, j] == 0 || _visited.Keys.Contains((rowLength * i)+j))
+            {
+                return;
+            }
+            else
+            {
+                _visited.Add((rowLength * i) + j, true);
+                obj.Add(arr[i, j]);
+                if (j + 1 < rowLength -1)
+                    add(arr, ref obj, ref _visited, i, j + 1);
+
+                if (i + 1 < colLength - 1)
+                   add(arr, ref obj, ref _visited, i + 1, j);
+
+                return;
+            }
+
+        }
 
 
         /// <summary>
